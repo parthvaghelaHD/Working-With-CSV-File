@@ -35,7 +35,7 @@ obj.from.path('./isl_wise_train_detail_03082015_v1.csv').to.array(function (data
         myData.push(new MyCSV(data[index][0], data[index][1], data[index][2], data[index][3], data[index][4], data[index][5], data[index][6], data[index][7], data[index][8], data[index][9], data[index][10], data[index][11]
         ))
     };
-    console.log(table.toString());
+    // console.log(table.toString());   
 
     myData.forEach((items) => {
         distance.push(items.Distanceoftrain)
@@ -44,6 +44,12 @@ obj.from.path('./isl_wise_train_detail_03082015_v1.csv').to.array(function (data
     myData.forEach((items) => {
         findTrain.push(items.Train_No)
     })
+
+    function DisplayData(array) {
+        for(let i=0;i<array.length;i++){
+            Table.push(Object.values(array[i]))
+        }
+    }
 
 
     let final = distance.slice(1).map(function (x) {
@@ -54,7 +60,6 @@ obj.from.path('./isl_wise_train_detail_03082015_v1.csv').to.array(function (data
     console.log('Maximum Distance Is : ' + Math.max.apply(Math, final))
     console.log('Minimum Distance Is : ' + Math.min.apply(Math, final) + '000')
 
-// if(process.argv[2] === 1)
     // Romove Duplication Of array !! Qustn: 1
 
     function getUnique(array) {
