@@ -79,7 +79,7 @@ function minDistance(arrMinDistance) {
 
 
 function trainData() {
-  Obj.from.path('isl_wise_train_detail_03082015_v1.csv').to.array(data=> {
+  Obj.from.path('isl_wise_train_detail_03082015_v1.csv').to.array(function (data) {
 		for (let index = 0; index < data.length; index++) {
       myData.push(new MyCSV(data[index][0], data[index][1], data[index][2],
         data[index][3], data[index][4], data[index][5],
