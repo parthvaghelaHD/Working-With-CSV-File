@@ -3,7 +3,20 @@ const process = require('process');
 const Table = require('cli-table');
 const Obj = csv();
 
+/*  Task :
+	
+	Q1 : - Find total number of train from datasets
+	Q2 : - find a train with longest distance
+	Q3 : - find a train with smallest distance
+	Q4 : - Group dataset by isl number
+	Q5 : - Find a train by maximum no of stop.
+	Q6 : - Find a train with minimum no of stop.
+	Q7 : - Find minimal route for station1 to station2 by minimum distance?
 
+*/
+
+
+// To creating table with Header & its Column Width
 let table = new Table({
    head: ['Train No.', 'train Name', 'islno,station Code', 'Station Name', 'Arrival time', 
    'Departure time', 'Distance', 'Source Station Code', 'source Station Name', 'Destination station Code', 
@@ -12,7 +25,7 @@ let table = new Table({
 });
 
 let myData = [],finalDitance = [], distance = [],  trainStop = [], stopLength = [], findTrain = [];
-
+// using MyCSV function to every data convert into array
 function MyCSV(data0, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11) 
 {
   this.trainno = data0,
@@ -28,13 +41,13 @@ function MyCSV(data0, data1, data2, data3, data4, data5, data6, data7, data8, da
   this.destinationStationCode = data10,
   this.destinationStationName = data11
 }
-
+// for Push all of the data into cli-table
 function Display(array) {
   for (let i = 0; i < array.length; i++) {
     table.push(Object.values(array[i]));
   }
 }
-
+//Remove dulpicate values from array
 function getUnique(array) {
   let uniqueArray = [];
   for(let value of array) {
@@ -44,14 +57,14 @@ function getUnique(array) {
   }
   return uniqueArray;
 }
-
+// groupBy Data with isl no,
 let groupBy = function (xs, key) {
    return xs.reduce(function (rv, x) {
     (rv[x[key]] = rv[x[key]] || []).push(x);
     return rv;
    }, {});
 };
-
+// Group by train_name & 
 let TraingroupBy = function (xs, key) {
   return trainStop.push(xs.reduce(function (rv, x) {
     let cnt = 0;
@@ -59,7 +72,7 @@ let TraingroupBy = function (xs, key) {
     return rv;
    	}, {}));
 };
-
+// To find a distance 
 function Distance(arrayDistance) {
   arrayDistance.forEach((items) => {
     distance.push(items.distance);
@@ -68,11 +81,11 @@ function Distance(arrayDistance) {
     return parseInt(x, 10);
   });
 }
-
+// convert into Stringify
 function maxDistance(arrMaxDistance) {
   console.log(JSON.stringify(arrMaxDistance));
 }
-
+// convert into Stringify
 function minDistance(arrMinDistance) {
   console.log(JSON.stringify(arrMinDistance));
 }
