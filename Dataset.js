@@ -2,7 +2,7 @@ const csv = require('csv');
 const process = require('process');
 const Table = require('cli-table');
 const Obj = csv();
-
+const fun = require('./modules/functions')
 /*  Task :
 	
 	Q1 : - Find total number of train from datasets
@@ -17,14 +17,14 @@ const Obj = csv();
 
 
 // To creating table with Header & its Column Width
-let table = new Table({
+const table = new Table({
    head: ['Train No.', 'train Name', 'islno,station Code', 'Station Name', 'Arrival time', 
    'Departure time', 'Distance', 'Source Station Code', 'source Station Name', 'Destination station Code', 
    'Destination Station Name']
    , colWidths: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 });
 
-let myData = [],finalDitance = [], distance = [],  trainStop = [], stopLength = [], findTrain = [];
+const myData = [],finalDitance = [], distance = [],  trainStop = [], stopLength = [], findTrain = [];
 // using MyCSV function to every data convert into array
 function MyCSV(data0, data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11) 
 {
@@ -49,7 +49,7 @@ function Display(array) {
 }
 //Remove dulpicate values from array
 function getUnique(array) {
-  let uniqueArray = [];
+  const uniqueArray = [];
   for(let value of array) {
     if(uniqueArray.indexOf(value) === -1) {
       uniqueArray.push(value);
@@ -58,14 +58,14 @@ function getUnique(array) {
   return uniqueArray;
 }
 // groupBy Data with isl no,
-let groupBy = function (xs, key) {
+const groupBy = function (xs, key) {
    return xs.reduce(function (rv, x) {
     (rv[x[key]] = rv[x[key]] || []).push(x);
     return rv;
    }, {});
 };
 // Group by train_name & 
-let TraingroupBy = function (xs, key) {
+const TraingroupBy = function (xs, key) {
   return trainStop.push(xs.reduce(function (rv, x) {
     let cnt = 0;
     (rv[x[key]] = rv[x[key]] || []).push(cnt = cnt + 1);
@@ -90,6 +90,15 @@ function minDistance(arrMinDistance) {
   console.log(JSON.stringify(arrMinDistance));
 }
 
+function findRoute (station1, station2){
+	for (let i=0; i< myData.length; i++){
+		if (myData.sourceStationName === myData.destinationStationName){
+			console.log("SAME DESTINASION")
+		} else {
+			console.log('enter valid Data')
+		}
+	}	
+}
 
 function trainData() {
   Obj.from.path('isl_wise_train_detail_03082015_v1.csv').to.array(function (data) {
@@ -136,6 +145,10 @@ function trainData() {
 					});
           console.log(myData[stopLength.indexOf(Math.min.apply(Math, stopLength))],
             	"Minimum Stops:" + Math.min.apply(Math, stopLength));
+					break;
+					
+				case 7:
+					findRoute(process.argv[2], process.argv[3])
 					break;
 				default:
 					console.log("Please Enter a Valid Number Of Choice...!");
